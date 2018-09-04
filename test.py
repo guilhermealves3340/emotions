@@ -21,38 +21,38 @@ class VideoData:
     #-----------------------------------------
     def __init__(self):
         """
-        Class constructor.
+        Classe construtor.
         """
 
         self._faceDet = FaceDetector()
         '''
-        The instance of the face detector.
+        A instância do detector de face.
         '''
 
         self._bank = GaborBank()
         '''
-        The instance of the bank of Gabor filters.
+        A instância do banco de filtros Gabor.
         '''
 
         self._emotionsDet = EmotionsDetector()
         '''
-        The instance of the emotions detector.
+        A instância do detector de emoções.
         '''
 
         self._face = FaceData()
         '''
-        Data of the last face detected.
+        Dados da última face detectada.
         '''
 
         self._emotions = OrderedDict()
         '''
-        Data of the last emotions detected.
+        Dados das últimas emoções detectadas.
         '''
 
     #-----------------------------------------
     def detect(self, frame):
         """
-        Detects a face and the prototypic emotions on the given frame image.
+        Detecta uma face e as emoções prototípicas na imagem do frame.
 
         Parameters
         ----------
@@ -69,13 +69,13 @@ class VideoData:
         if ret:
             self._face = face
 
-            # Crop just the face region
+            # Cortar apenas a região da face
             frame, face = face.crop(frame)
 
-            # Filter it with the Gabor bank
+            # Filtrar com o banco Gabor
             responses = self._bank.filter(frame)
 
-            # Detect the prototypic emotions based on the filter responses
+            # Detectar as emoções prototípicas com base nas respostas do filtro
             self._emotions = self._emotionsDet.detect(face, responses)
 
             return True
@@ -86,14 +86,14 @@ class VideoData:
     #-----------------------------------------
     def draw(self, frame):
         """
-        Draws the detected data of the given frame image.
+        Desenha os dados detectados da imagem do frame fornecida.
 
         Parameters
         ----------
         frame: numpy.ndarray
             Image where to draw the information to.
         """
-        # Font settings
+        """ # Font settings
         font = cv2.FONT_HERSHEY_SIMPLEX
         scale = 0.5
         thick = 1
@@ -103,11 +103,11 @@ class VideoData:
         black = (0, 0, 0)
         white = (255, 255, 255)
         yellow = (0, 255, 255)
-        red = (0, 0, 255)
+        red = (0, 255, 0) """
 
         empty = True
 
-        # Plot the face landmarks and face distance
+        # Traçar os marcos da face e distância do rosto
         x = 5
         y = 0
         w = int(frame.shape[1]* 0.2)
@@ -125,11 +125,13 @@ class VideoData:
                 labels = []
                 values = []
             else:
-                labels = list(emotions.keys())
-                values = list(emotions.values())
-                bigger = labels[values.index(max(values))]
+                labels = list(emotions.keys())                                  ## Lista com as emoções disponíveis
+                values = list(emotions.values())                                ## Lista com 
+                bigger = labels[values.index(max(values))]                      ## MAIOR PROBABILIDADE
 
-                # Draw the header
+                print(bigger)                                                   ## PRINTANDO A EMOÇÃO COM MAIOR PROBABILIDADE
+
+                """ # Desenhe o cabeçalho
                 text = 'emotions'
                 size, _ = cv2.getTextSize(text, font, scale, thick)
                 y += size[1] + 20
@@ -138,19 +140,19 @@ class VideoData:
                 cv2.putText(frame, text, (x, y), font, scale, yellow, thick)
 
                 y += 5
-                cv2.line(frame, (x,y), (x+w,y), black, 1)
+                cv2.line(frame, (x,y), (x+w,y), black, 1) """
 
-            size, _ = cv2.getTextSize('happiness', font, scale, thick)
+            """ size, _ = cv2.getTextSize('happiness', font, scale, thick)
             t = size[0] + 20
             w = 150
-            h = size[1]
-            for l, v in zip(labels, values):
+            h = size[1] """
+            """ for l, v in zip(labels, values):
                 lab = '{}:'.format(l)
                 val = '{:.2f}'.format(v)
                 size, _ = cv2.getTextSize(l, font, scale, thick)
 
                 # Set a red color for the emotion with bigger probability
-                color = red if l == bigger else yellow
+                #color = red if l == bigger else yellow
 
                 y += size[1] + 15
 
@@ -158,18 +160,18 @@ class VideoData:
                 p2 = (x+t+w, y-size[1]+h+5)
                 cv2.rectangle(frame, p1, p2, black, 1)
 
-                # Draw the filled rectangle proportional to the probability
+                # Desenhe o retângulo preenchido proporcionalmente à probabilidade
                 p2 = (p1[0] + int((p2[0] - p1[0]) * v), p2[1])
                 cv2.rectangle(frame, p1, p2, color, -1)
                 cv2.rectangle(frame, p1, p2, black, 1)
 
-                # Draw the emotion label
+                # Desenhe o rótulo de emoção
                 cv2.putText(frame, lab, (x, y), font, scale, black, glow)
                 cv2.putText(frame, lab, (x, y), font, scale, color, thick)
 
-                # Draw the value of the emotion probability
+                # Desenhe o valor da probabilidade de emoção
                 cv2.putText(frame, val, (x+t+5, y), font, scale, black, glow)
-                cv2.putText(frame, val, (x+t+5, y), font, scale, white, thick)
+                cv2.putText(frame, val, (x+t+5, y), font, scale, white, thick) """
         except Exception as e:
             print(e)
             pass
@@ -189,7 +191,7 @@ def main(argv):
     args = parseCommandLine(argv)
 
     # Loads the video or starts the webcam
-    if args.source == 'cam':
+    if args.source == 'gui':
         video = cv2.VideoCapture(args.id)
         if not video.isOpened():
             print('Error opening webcam of id {}'.format(args.id))
@@ -212,8 +214,9 @@ def main(argv):
     # if the camera does not support it, the frames will be stretched to fit it)
     # The intention is just to standardize the input (and make the help window
     # work as intended)
-    #video.set(cv2.CAP_PROP_FRAME_WIDTH, 1280);
-    #video.set(cv2.CAP_PROP_FRAME_HEIGHT, 720);
+
+    #video.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+    #video.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
     # Create the helper class
     data = VideoData()
