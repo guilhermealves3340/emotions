@@ -179,19 +179,19 @@ class VideoData:
 #---------------------------------------------
 def main(argv):
     """
-    Main entry of this script.
+    Entrada principal deste script.
 
     Parameters
     ------
-    argv: list of str
-        Arguments received from the command line.
+    argv: lista de str
+        Argumentos recebidos da linha de comando.
     """
 
-    # Parse the command line
+    # Parse da linha de comando
     args = parseCommandLine(argv)
 
-    # Loads the video or starts the webcam
-    if args.source == 'gui':
+    # Carrega o vídeo ou inicia a webcam
+    if args.source == 'cam':
         video = cv2.VideoCapture(args.id)
         if not video.isOpened():
             print('Error opening webcam of id {}'.format(args.id))
