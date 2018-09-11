@@ -107,7 +107,7 @@ class VideoData:
 
         empty = True
 
-        # Traçar os marcos da face e distância do rosto
+         # Traçar os marcos da face e distância do rosto
         x = 5
         y = 0
         w = int(frame.shape[1]* 0.2)
@@ -116,7 +116,7 @@ class VideoData:
             empty = face.isEmpty()
             face.draw(frame)
         except:
-            pass
+            pass 
 
         # Plot the emotion probabilities
         try:
@@ -218,7 +218,7 @@ def main(argv):
     #video.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
     #video.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
-    # Create the helper class
+    # Criar a classe auxiliar
     data = VideoData()
 
     # Text settings
@@ -228,7 +228,7 @@ def main(argv):
     glow = 3 * thick
 
     # Color settings
-    color = (255, 255, 255)
+    color = (0, 0, 0)
 
     paused = False
     frameNum = 0
