@@ -1,5 +1,12 @@
-
-
+"""
+    NEUTRAL
+    HAPPINES
+    SADNESS
+    ANGER
+    FEAR
+    SURPRISE
+    DISGUST """
+    
 import sys
 import argparse
 import cv2
