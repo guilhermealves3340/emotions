@@ -197,7 +197,15 @@ def main(argv):
     # Parse da linha de comando
     args = parseCommandLine(argv)
 
-    # Carrega o vídeo ou inicia a webcam
+    #Acionando função de parse da linha de comando  (Gui)
+    ap = parseCommandLineArgumentos(argv)
+
+    photo  = cv2.imread(args["image"])  #(Gui)
+    fps = int(photo.get(cv2.CAP_PROP_FPS))
+        #frameCount = int(video.get(cv2.CAP_PROP_FRAME_COUNT))  (Gui)
+        sourceName = ''     #(Gui)
+
+    """ # Carrega o vídeo ou inicia a webcam
     if args.source == 'cam':
         video = cv2.VideoCapture(args.id)
         if not video.isOpened():
@@ -215,7 +223,7 @@ def main(argv):
 
         fps = int(video.get(cv2.CAP_PROP_FPS))
         frameCount = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
-        sourceName = args.file
+        sourceName = args.file """ #(Gui)
 
     # Force HD resolution (if the video was not recorded in this resolution or
     # if the camera does not support it, the frames will be stretched to fit it)
@@ -228,7 +236,7 @@ def main(argv):
     # Criar a classe auxiliar
     data = VideoData()
 
-    # Text settings
+    """# Text settings
     font = cv2.FONT_HERSHEY_SIMPLEX
     scale = 1
     thick = 1
@@ -238,9 +246,74 @@ def main(argv):
     color = (0, 0, 0)
 
     paused = False
-    frameNum = 0
+    frameNum = 0    """ #(Gui)
 
     # Process the video input
+    """ while True:
+
+        if not paused:
+            start = datetime.now()
+
+        ret, img = video.read()
+        if ret:
+            frame = img.copy()
+        else:
+            paused = True
+
+        drawInfo(frame, frameNum, frameCount, paused, fps, args.source)
+
+        data.detect(frame)
+        data.draw(frame)
+
+        cv2.imshow(sourceName, frame)
+
+        if paused:
+            key = cv2.waitKey(0)
+        else:
+            end = datetime.now()
+            delta = (end - start)
+            if fps != 0:
+                delay = int(max(1, ((1 / fps) - delta.total_seconds()) * 1000))
+            else:
+                delay = 1
+
+            key = cv2.waitKey(delay)
+
+        if key == ord('q') or key == ord('Q') or key == 27:
+            break
+        elif key == ord('p') or key == ord('P'):
+            paused = not paused
+        elif args.source == 'video' and (key == ord('r') or key == ord('R')):
+            frameNum = 0
+            video.set(cv2.CAP_PROP_POS_FRAMES, frameNum)
+        elif args.source == 'video' and paused and key == 2424832: # Left key
+            frameNum -= 1
+            if frameNum < 0:
+                frameNum = 0
+            video.set(cv2.CAP_PROP_POS_FRAMES, frameNum)
+        elif args.source == 'video' and paused and key == 2555904: # Right key
+            frameNum += 1
+            if frameNum >= frameCount:
+                frameNum = frameCount - 1
+        elif args.source == 'video' and key == 2162688: # Pageup key
+            frameNum -= (fps * 10)
+            if frameNum < 0:
+                frameNum = 0
+            video.set(cv2.CAP_PROP_POS_FRAMES, frameNum)
+        elif args.source == 'video' and key == 2228224: # Pagedown key
+            frameNum += (fps * 10)
+            if frameNum >= frameCount:
+                frameNum = frameCount - 1
+            video.set(cv2.CAP_PROP_POS_FRAMES, frameNum)
+        elif key == 7340032: # F1
+            showHelp(sourceName, frame.shape)
+
+        if not paused:
+            frameNum += 1
+
+    video.release()
+    cv2.destroyAllWindows() """
+
     while True:
 
         if not paused:
@@ -476,10 +549,19 @@ def parseCommandLine(argv):
 
     args = parser.parse_args()
 
+
     if args.source == 'video' and args.file is None:
         parser.error('-f is required when source is "video"')
 
     return args
+
+def parseCommandLineArgumentos(argv):
+
+    #Construindo argumento para input de imagem
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-i", "--image", required=True,
+    help="path to input image")
+    argumentos = vars(ap.parse_args())
 
 #---------------------------------------------
 # namespace verification for invoking main
