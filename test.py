@@ -12,7 +12,7 @@ import argparse
 import cv2
 import numpy as np
 from collections import OrderedDict
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta #Nao será util
 
 from faces import FaceDetector
 from data import FaceData
@@ -184,6 +184,25 @@ class VideoData:
             pass
 
 #---------------------------------------------
+# MAIN
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-i", "--image", required=True,
+    help="path to input image")
+args = vars(ap.parse_args())
+
+photo = cv2.imread(args["image"])
+
+data = VideoData()
+
+#ret, img = photo
+"""if ret:
+    frame = img.copy()"""
+frame = photo.copy()
+
+data.detect(frame)
+data.draw(frame)
+
 def main(argv):
     """
     Entrada principal deste script.
@@ -195,15 +214,15 @@ def main(argv):
     """
 
     # Parse da linha de comando
-    args = parseCommandLine(argv)
+    #args = parseCommandLine(argv)
 
     #Acionando função de parse da linha de comando  (Gui)
     ap = parseCommandLineArgumentos(argv)
 
-    photo  = cv2.imread(args["image"])  #(Gui)
-    fps = int(photo.get(cv2.CAP_PROP_FPS))
+    photo  = cv2.imread(argumentos["image"])  #(Gui)
+    #fps = int(photo.get(cv2.CAP_PROP_FPS))     (Gui)
         #frameCount = int(video.get(cv2.CAP_PROP_FRAME_COUNT))  (Gui)
-        sourceName = ''     #(Gui)
+        #sourceName = ''     #(Gui)
 
     """ # Carrega o vídeo ou inicia a webcam
     if args.source == 'cam':
@@ -314,25 +333,26 @@ def main(argv):
     video.release()
     cv2.destroyAllWindows() """
 
-    while True:
+    #while True:
 
-        if not paused:
-            start = datetime.now()
+        #if not paused:
+            #start = datetime.now() """
 
-        ret, img = video.read()
-        if ret:
-            frame = img.copy()
-        else:
-            paused = True
+        #ret, img = video.read()
+    ret, img = photo.read()
+    if ret:
+        frame = img.copy()
+        """else:
+            paused = True """
 
-        drawInfo(frame, frameNum, frameCount, paused, fps, args.source)
+    #drawInfo(frame, frameNum, frameCount, paused, fps, args.source)
 
-        data.detect(frame)
-        data.draw(frame)
+    data.detect(frame)
+    data.draw(frame)
 
-        cv2.imshow(sourceName, frame)
+        #cv2.imshow(sourceName, frame)
 
-        if paused:
+    """ if paused:
             key = cv2.waitKey(0)
         else:
             end = datetime.now()
@@ -377,11 +397,11 @@ def main(argv):
             frameNum += 1
 
     video.release()
-    cv2.destroyAllWindows()
+    cv2.destroyAllWindows() """
 
 #---------------------------------------------
-def drawInfo(frame, frameNum, frameCount, paused, fps, source):
-    """
+""" def drawInfo(frame, frameNum, frameCount, paused, fps, source):
+    
     Draws text info related to the given frame number into the frame image.
 
     Parameters
@@ -398,7 +418,7 @@ def drawInfo(frame, frameNum, frameCount, paused, fps, source):
         Frame rate (in frames per second) of the video for time calculation.
     source: str
         Source of the input images (either "video" or "cam").
-    """
+    
 
     # Font settings
     font = cv2.FONT_HERSHEY_SIMPLEX
@@ -440,7 +460,7 @@ def drawInfo(frame, frameNum, frameCount, paused, fps, source):
     x = frame.shape[1] - size[0] - 5
     y = frame.shape[0] - size[1] + 5
     cv2.putText(frame, text, (x, y), font, scale, black, glow)
-    cv2.putText(frame, text, (x, y), font, scale, yellow, thick)
+    cv2.putText(frame, text, (x, y), font, scale, yellow, thick) """
 
 #---------------------------------------------
 def showHelp(windowTitle, shape):
@@ -505,11 +525,11 @@ def showHelp(windowTitle, shape):
 
     # Show the image and wait for a key press
     cv2.imshow(windowTitle, image)
-    cv2.waitKey(0)
+    cv2.waitKey(0) 
 
 #---------------------------------------------
-def parseCommandLine(argv):
-    """
+""""def parseCommandLine(argv):
+    
     Parse the command line of this utility application.
 
     This function uses the argparse package to handle the command line
@@ -527,7 +547,7 @@ def parseCommandLine(argv):
         Object with the parsed arguments as attributes (refer to the
         documentation of the argparse package for details)
 
-    """
+    
     parser = argparse.ArgumentParser(description='Tests the face and emotion '
                                         'detector on a video file input.')
 
@@ -553,9 +573,9 @@ def parseCommandLine(argv):
     if args.source == 'video' and args.file is None:
         parser.error('-f is required when source is "video"')
 
-    return args
+    return args """
 
-def parseCommandLineArgumentos(argv):
+def parseCommandLineArgumentos(argv, argumentos):
 
     #Construindo argumento para input de imagem
     ap = argparse.ArgumentParser()
@@ -566,5 +586,5 @@ def parseCommandLineArgumentos(argv):
 #---------------------------------------------
 # namespace verification for invoking main
 #---------------------------------------------
-if __name__ == '__main__':
-    main(sys.argv[1:])
+"""if __name__ == '__main__':
+    main(sys.argv)"""
