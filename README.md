@@ -2,6 +2,16 @@
 
 A ideia é realizarmos a classificação do estado emoção com uma imagem dada de entrada e retornar uma string da emoção detectada. A partir disto o php o resultado processado.
 
+São 7 possíveis de emoções:
+
+    NEUTRAL
+    HAPPINES
+    SADNESS
+    ANGER
+    FEAR
+    SURPRISE
+    DISGUST
+
 ## Dependências do projeto
 
 This project depends on [Python](https://www.python.org/) (>= 3.5) and the following packages:
