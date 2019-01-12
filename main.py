@@ -22,7 +22,6 @@ class VideoData:
     """
     Helper class to present the detected face region, landmarks and emotions.
     """
-
     #-----------------------------------------
     def __init__(self):
         """
@@ -53,14 +52,12 @@ class VideoData:
         '''
         Dados das últimas emoções detectadas.
         '''
-
     #-----------------------------------------
     def detect(self, frame):
         """
         Detecta uma face e as emoções prototípicas na imagem do frame.
 
         """
-
         ret, face = self._faceDet.detect(frame)
         if ret:
             self._face = face
@@ -121,10 +118,7 @@ ap.add_argument("-i", "--image", required=True,
 args = vars(ap.parse_args())
 
 photo = cv2.imread(args["image"])
-
 data = VideoData()
-
 frame = photo.copy()
-
 data.detect(frame)
 data.draw(frame)
