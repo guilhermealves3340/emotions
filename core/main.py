@@ -122,3 +122,6 @@ data = VideoData()
 frame = photo.copy()
 data.detect(frame)
 data.draw(frame)
+
+def recognition(i):
+    pass

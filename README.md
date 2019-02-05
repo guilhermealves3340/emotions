@@ -20,3 +20,4 @@ Use para executar o seguinte comando:
     >> python main.py --image < diretorio da imagem>
 
 
+https://github.com/davisking/dlib
