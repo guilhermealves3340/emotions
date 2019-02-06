@@ -1,6 +1,12 @@
+from flask_restful import Resource, reqparse
+
+from core.main import recognition
 
 
+class Local(Resource):
 
-class Local:
+    def get(self):
 
-    pass
+        return {
+            'status': 'sucess'
+        }

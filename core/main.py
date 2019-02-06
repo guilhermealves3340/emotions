@@ -12,10 +12,10 @@ import argparse
 import cv2
 from collections import OrderedDict
 
-from faces import FaceDetector
-from data import FaceData
-from gabor import GaborBank
-from emotions import EmotionsDetector
+from core.faces import FaceDetector
+from core.data import FaceData
+from core.gabor import GaborBank
+from core.emotions import EmotionsDetector
 
 #---------------------------------------------
 class VideoData:
@@ -112,16 +112,17 @@ class VideoData:
             print(e)
             pass
 
-ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required=True,
-    help="path to input image")
-args = vars(ap.parse_args())
+def testes():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-i", "--image", required=True,
+        help="path to input image")
+    args = vars(ap.parse_args())
 
-photo = cv2.imread(args["image"])
-data = VideoData()
-frame = photo.copy()
-data.detect(frame)
-data.draw(frame)
+    photo = cv2.imread(args["image"])
+    data = VideoData()
+    frame = photo.copy()
+    data.detect(frame)
+    data.draw(frame)
 
 def recognition(i):
     pass

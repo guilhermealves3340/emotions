@@ -4,9 +4,9 @@ import os
 from collections import OrderedDict
 import numpy as np
 
-from gabor import GaborBank
-from data import FaceData
-from faces import FaceDetector
+from core.gabor import GaborBank
+from core.data import FaceData
+from core.faces import FaceDetector
 
 from sklearn import svm
 from sklearn.externals import joblib

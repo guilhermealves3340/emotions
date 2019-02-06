@@ -6,7 +6,7 @@ from core.main import recognition
 
 class Upload(Resource):
 
-    def post(self):
+    def get(self):
 
         parse = reqparse.RequestParser()
         parse.add_argument('file', type=werkzeug.datastructures.FileStorage, location='files')

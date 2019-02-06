@@ -5,7 +5,7 @@ import numpy as np
 import dlib
 import cv2
 
-from data import FaceData
+from core.data import FaceData
 
 #=============================================
 class FaceDetector:
