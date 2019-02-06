@@ -1,0 +1,13 @@
+{
+    "bigger_emotion": {
+        "emotion": "happy",
+        "score": 85
+    },
+    "NEUTRAL": 5,
+    "HAPPINES": 85,
+    "SADNESS": 2,
+    "ANGER": 1,
+    "FEAR": 5,
+    "SURPRISE": 10,
+    "DISGUST": 6
+}
