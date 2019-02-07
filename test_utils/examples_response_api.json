@@ -1,4 +1,5 @@
 {
+    "src": "/home/guilherme/Imagens/happy.jpeg",
     "bigger_emotion": {
         "emotion": "happy",
         "score": 85
@@ -11,3 +12,4 @@
     "SURPRISE": 10,
     "DISGUST": 6
 }
+
