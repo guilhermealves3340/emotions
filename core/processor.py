@@ -114,28 +114,33 @@ class FrameData:
             print(e)
             pass
 
-class Recognition:
 
-    def __init__(self, _file):
-        self._file = _file
-        self.data = FrameData()
+def detect_local(_file):
+    frame = cv2.imread(_file)
+    data.detect(frame)
+    result = dict(data._emotions)
+    result['src'] = _file
+    result['bigger_emotion'] = {
+        'emotion': list(data._emotions.keys())[list(data._emotions.values()).index(max(list(data._emotions.values())))],
+        #'emotion': list(self.data._emotions.keys()).index(max(list(self.data._emotions.values()))),
+        #'emotion': list(self.data._emotions.keys()).index(list(self.data._emotions.values()).index(max(list(self.data._emotions.values())))),
 
-
-    def detect_local(self):
-        frame = cv2.imread(self._file)
-        data = FrameData()
-        data.detect(frame)
-        result = dict(data._emotions)
-        result['src'] = self._file
-        result['bigger_emotion'] = {
-            'emotion': list(self.emotions.keys()).index(max(list(self._emotions.values()))),
-            'score': max(list(self._emotions.values()))
-        }
-        return result
+        'score': max(list(data._emotions.values()))
+    }
+    return result
 
 
-    def detect_upload(self):
-        pass
+def detect_upload(_file):
+    data = FrameData()
+    data.detect(_file)
+    result = dict(data._emotions)
+    result['src'] = _file
+    result['bigger_emotion'] = {
+        'emotion': list(self.emotions.keys()).index(max(list(self._emotions.values()))),
+        'score': max(list(self._emotions.values()))
+    }
+    return result
+
 
 
 def testes(path):
