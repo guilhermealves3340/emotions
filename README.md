@@ -66,18 +66,20 @@ Send file with key = 'file'
 
 ```json
 {
-    "src": "/home/guilherme/Imagens/happy.jpeg",
-    "bigger_emotion": {
-        "emotion": "happy",
-        "score": 85
+    "emotions": {
+        "neutral": 0.09924766274118275,
+        "happiness": 0.19784566900071152,
+        "sadness": 0.00850921345255757,
+        "anger": 0.02736034770887536,
+        "fear": 0.02820437791581977,
+        "surprise": 0.6305306379481774,
+        "disgust": 0.008302091232675795
     },
-    "NEUTRAL": 5,
-    "HAPPINES": 85,
-    "SADNESS": 2,
-    "ANGER": 1,
-    "FEAR": 5,
-    "SURPRISE": 10,
-    "DISGUST": 6
+    "src": "/home/guilherme/Imagens/p000001782.jpg",
+    "bigger_emotion": {
+        "emotion": "surprise",
+        "score": 0.6305306379481774
+    }
 }
 
 ```
