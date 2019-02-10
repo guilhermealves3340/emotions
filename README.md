@@ -50,7 +50,13 @@ pip freeze > requirements.txt
 
 * Local file:
 Use requests GET in http://localhost:5000/api/local
-JSON REQUESTS: {"path_file": PATH OF FILE IN FOULDER }
+JSON REQUESTS: 
+```json
+{
+    "path_file": "[PATH OF FILE IN FOULDER]" 
+}
+
+```
 
 * Upload file:
 Use requests GET in http://localhost:5000/api/upload
