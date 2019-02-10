@@ -57,6 +57,8 @@ Use requests GET in http://localhost:5000/api/upload
 Send file with key = 'file'
 
 * JSON RESPONSE: 
+
+```json
 {
     "src": "/home/guilherme/Imagens/happy.jpeg",
     "bigger_emotion": {
@@ -71,3 +73,5 @@ Send file with key = 'file'
     "SURPRISE": 10,
     "DISGUST": 6
 }
+
+```
