@@ -26,7 +26,7 @@ class FrameData:
             self._face = None
             return False
 
-def detect_emotions(_file):
+def processor(_file):
     frame = cv2.imread(_file)
     data = FrameData()
     face = data.detect(frame)

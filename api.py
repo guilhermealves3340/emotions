@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Resource, Api
 
-from routes import Upload, Local
+from functions import Upload, Local
 
 
 app = Flask(__name__)

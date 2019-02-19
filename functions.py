@@ -4,7 +4,7 @@ from datetime import datetime
 from hashlib import md5
 import random as rd
 
-from core.processor import detect_emotions
+from core.engine import processor
 
 
 class Upload(Resource):
@@ -24,6 +24,6 @@ class Local(Resource):
     def get(self):
         try:
             data = request.get_json(force=True)
-            return detect_emotions(data['path_file'])
+            return processor(data['path_file'])
         except:
             return 'File invalid'
