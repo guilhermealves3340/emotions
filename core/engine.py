@@ -9,35 +9,29 @@ from core.emotions import EmotionsDetector
 class FrameData:
 
     def __init__(self):
-        self._faceDet = FaceDetector()
-        self._bank = GaborBank()
-        self._emotionsDet = EmotionsDetector()
-        self._face = FaceData()
-        self._emotions = {}
-    
+        self.faceDet = FaceDetector()
+        self.bank = GaborBank()
+        self.emotionsDet = EmotionsDetector()
+        self.face = FaceData()
+        self.emotions = {}
+
     def detect(self, frame):
-        ret, face = self._faceDet.detect(frame)
+        ret, face = self.faceDet.detect(frame)
         if ret:
             frame, face = face.crop(frame)
-            responses = self._bank.filter(frame)
-            self._emotions = self._emotionsDet.detect(face, responses)
+            responses = self.bank.filter(frame)
+            self.emotions = self.emotionsDet.detect(face, responses)
             return True
         else:
-            self._face = None
+            self.face = None
             return False
 
-def processor(_file):
-    frame = cv2.imread(_file)
+
+def processor(frame):
     data = FrameData()
     face = data.detect(frame)
-    if face != None:
-        return {
-            'emotions': dict(data._emotions),
-            'src': _file,
-            'bigger_emotion': {
-                'emotion': list(data._emotions.keys())[list(data._emotions.values()).index(max(list(data._emotions.values())))],
-                'score': max(list(data._emotions.values()))
-            }
-        }
+    if face:
+        return data
+
     else:
-        return {'error': 'face not found'}
+        return None

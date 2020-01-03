@@ -1,17 +1,20 @@
-from flask import Flask
-from flask_restful import Resource, Api
-
-from functions import Upload, Local
-
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import execute
+from payloadSchemas import *
 
 app = Flask(__name__)
-api = Api(app)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
-api.add_resource(Local, '/api/local')
-api.add_resource(Upload, '/api/upload')
-
+@app.route('/api/face-recognition', methods=['GET'])
+def inference():
+    data = request.get_json(force=True)
+    payload, err = check(data, inferenceSchema)
+    if err:
+        return jsonify({'error': err}), 400
+    return jsonify(execute.runInference(payload)), 200
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
